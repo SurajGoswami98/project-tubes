@@ -1,7 +1,7 @@
 import "../styles/main.css";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, Outlet } from "react-router-dom";
 import Button from "../components/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 export default function Base() {
@@ -11,6 +11,13 @@ export default function Base() {
   const clearSearch = () => {
     setSearchTerm('');
   };
+
+  // Initialize Preline UI components (accordions, dropdowns, overlays)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.HSStaticMethods) {
+      window.HSStaticMethods.autoInit();
+    }
+  }, [location.pathname]);
   return (
     <>
 
@@ -426,6 +433,7 @@ m93 -26 c8 -22 -10 -49 -32 -49 -22 0 -40 27 -32 49 8 21 56 21 64 0z m-80
         <div className="w-full lg:ps-64">
           <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
             {/* <!-- your content goes here ... --> */}
+            <Outlet />
           </div>
         </div>
         {/* <!-- End Content --> */}
